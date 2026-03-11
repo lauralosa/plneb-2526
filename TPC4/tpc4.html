@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABE - Academia de Bailado de Esposende</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* 1. RESET E BASE 
+           O reset garante que o layout seja consistente em todos os browsers. */
+           *{ margin: 0; padding: 0; box-sizing: border-box; } /* Garante que padding/border não aumentem a largura dos elementos */
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #ffffff; 
+            color: #000000; 
+            overflow-x: hidden; /* Previne scroll horizontal indesejado */
+        }
+
+        /* 2. NAVEGAÇÃO 
+           Uso de position: fixed para manter o menu sempre acessível. */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 50px;
+            display: flex; /* Flexbox para alinhamento horizontal */
+            justify-content: space-between; /* Separa o logo dos links */
+            align-items: center;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000; /* Garante que o menu fique por cima de tudo */
+            border-bottom: 1px solid #eee;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-left: 30px;
+            letter-spacing: 1px;
+        }
+
+        /* 3. HERO SECTION 
+           Utiliza unidades de viewport (vh/vw) para ocupar o ecrã inteiro. */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Overlay dinâmico: combina gradiente preto e imagem de fundo */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('DSC03996.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efeito Parallax simples */
+            color: white;
+        }
+        header h1 {
+            font-size: 10vw; /* Texto responsivo baseado na largura do ecrã */
+            font-weight: 900;
+            line-height: 0.8;
+            margin-bottom: 20px;
+            letter-spacing: -5px;
+        }
+        header p {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            color: rgba(255,255,255,0.8);
+        }
+        .btn-explore {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 15px 30px;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .btn-explore:hover {
+            background: white;
+            color: black;
+        }
+
+        /* 4. SECCÕES GERAIS */
+        section { padding: 100px 50px; min-height: 80vh; }
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            border-bottom: 10px solid #000;
+            display: inline-block;
+        }
+
+        /* 4. ESTILOS (SISTEMA DE GRELHA) 
+           Uso de CSS Grid para divisão matemática do espaço. */
+        .estilos-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 colunas de largura igual */
+            gap: 1px;
+            background-color: #000;
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+        }
+        .estilo-item {
+            background-color: #fff;
+            padding: 40px 10px;
+            transition: 0.4s; /* Suaviza a animação de hover */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 200px;
+        }
+        .estilo-item:hover { background-color: #000; color: #fff; } /* Interatividade: Inversão de cores no estado de hover */
+        .estilo-item h3 { font-size: 1.2rem; text-transform: uppercase; margin-bottom: 10px; }
+        .estilo-item p { font-size: 0.8rem; line-height: 1.4; }
+
+        /* 5. RESPONSIVIDADE 
+           Media Query para adaptar o layout a dispositivos móveis. */
+        @media (max-width: 900px) {
+            .estilos-grid { grid-template-columns: 1fr; } /* Coluna única em ecrãs pequenos */
+        }
+
+        /* 6. CAROUSEL DE ESPETÁCULOS */
+        .carousel-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 50px auto;
+            overflow: hidden; /* Esconde os slides que não estão ativos */
+            border: 2px solid #000;
+        }
+        .carousel-slides {
+            display: flex;  /* Coloca os slides lado a lado */
+            transition: transform 0.5s ease-in-out; /* Animação do movimento */
+        }
+        .slide {
+            min-width: 100%; /* Cada slide ocupa a largura total do container */
+            height: 600px;
+            background-size: cover;
+            background-position: center;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            padding: 20px 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+        .prev { left: 0; }
+        .next { right: 0; }
+
+        /* 7. HORÁRIOS */
+        .horarios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .dia-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            background: #f9f9f9;
+        }
+        .dia-box img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%); /* Imagem a preto e branco por defeito */
+            transition: 0.5s;
+        }
+        .dia-box img:hover { filter: grayscale(0%); } /* Revela a cor ao passar o rato */
+
+        /* 8. SOBRE E CONTACTOS */
+        .sobre-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .footer-info {
+            background: #000; color: #fff; padding: 100px 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px;
+        }
+        .footer-info a { color: white; text-decoration: none; display: block; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="font-weight: 900; font-size: 1.5rem;">ABE</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#sobre">Jornada</a>
+            <a href="#estilos">Estilos</a>
+            <a href="#horarios">Horários</a>
+            <a href="#espetaculos">Espetáculos</a>
+            <a href="#contactos">Contactos</a>
+        </div>
+    </nav>
+
+    <header id="home">
+        <p>Living and</p>
+        <h1>DANCING</h1>
+        <a href="#estilos" class="btn-explore">Explorar Academia</a>
+    </header>
+
+    <section id="sobre" style="background-color: #fff; padding: 120px 50px;">
+        <h2 class="section-title">A Nossa Jornada</h2>
+        
+        <div class="sobre-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;">
+            
+            <div class="sobre-text" style="font-family: 'Inter', sans-serif;">
+                <p style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 20px;">
+                    Desde 1987 — 39 Anos de História
+                </p>
+                <h3 style="font-family: 'Montserrat'; font-size: 2.5rem; line-height: 1.1; margin-bottom: 30px; text-transform: uppercase;">
+                    Academia de Bailado de Esposende
+                </h3>
+                <p style="font-size: 1rem; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                    Há 39 anos, a Academia de Bailado de Esposende (ABE) abriu as suas portas com uma missão clara: elevar a dança a um patamar de excelência no norte de Portugal. O que começou como um sonho local transformou-se numa das instituições mais respeitadas da região, fundindo a tradição técnica com a vanguarda das danças urbanas.
+                </p>
+                <p style="font-size: 1rem; line-height: 1.8; color: #333; font-weight: 200;">
+                    Não ensinamos apenas a dançar; preparamos atletas e artistas para o sucesso. O rigor do nosso treino reflete-se no nosso palmarés: somos orgulhosamente detentores de vários títulos no All Dance, conquistando campeonatos tanto a nível Nacional como Europeu. Cada troféu na nossa vitrine representa horas de dedicação, suor e o talento incomparável dos nossos alunos e professores.
+                </p>
+            </div>
+
+            <div class="sobre-stats" style="background: #000; color: #fff; padding: 60px; display: flex; flex-direction: column; justify-content: center; border-radius: 0;">
+                <div style="margin-bottom: 40px;">
+                    <span style="font-family: 'Montserrat'; font-size: 5rem; font-weight: 900; display: block; line-height: 1;">39</span>
+                    <span style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem;">Anos de Experiência</span>
+                </div>
+                <div>
+                    <span style="font-family: 'Montserrat'; font-size: 5rem; font-weight: 900; display: block; line-height: 1;">+10</span>
+                    <span style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem;">Títulos All Dance</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="estilos" style="background-color: #f9f9f9;">
+        <h2 class="section-title">Estilos</h2>
+        <div class="estilos-grid">
+            <div class="estilo-item"><h3>Ballet</h3><p>Técnica e elegância clássica.</p></div>
+            <div class="estilo-item"><h3>HipHop</h3><p>Groove e cultura urbana.</p></div>
+            <div class="estilo-item"><h3>House</h3><p>Footwork e movimento fluido.</p></div>
+            <div class="estilo-item"><h3>Dancehall</h3><p>Energia e ritmos jamaicanos.</p></div>
+            <div class="estilo-item"><h3>Locking</h3><p>Funk e estilo clássico.</p></div>
+        </div>
+    </section>
+
+    <section id="horarios">
+        <h2 class="section-title">Horários</h2>
+        <div class="horarios-container">
+            <div class="dia-box"><h4>Segunda</h4><img src="Captura de ecrã 2026-03-09 170204.png"></div>
+            <div class="dia-box"><h4>Terça</h4><img src="Captura de ecrã 2026-03-09 170212.png"></div>
+            <div class="dia-box"><h4>Quarta</h4><img src="Captura de ecrã 2026-03-09 170219.png"></div>
+            <div class="dia-box"><h4>Quinta</h4><img src="Captura de ecrã 2026-03-09 170226.png"></div>
+            <div class="dia-box"><h4>Sexta</h4><img src="Captura de ecrã 2026-03-09 170233.png"></div>
+        </div>
+    </section>
+
+    <section id="espetaculos">
+        <h2 class="section-title">Espetáculos</h2>
+        <div class="carousel-container">
+            <button class="carousel-btn prev" onclick="moveSlide(-1)">❮</button>
+            <button class="carousel-btn next" onclick="moveSlide(1)">❯</button>
+            <div class="carousel-slides" id="slider">
+                <div class="slide" style="background-image: url('slide1.jpg');"></div>
+                <div class="slide" style="background-image: url('slide2.jpg');"></div>
+                <div class="slide" style="background-image: url('slide3.jpeg');"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contactos">
+        <div class="footer-info">
+            <div>
+                <h4>Localização</h4>
+                <p>Rua Dr. Francisco Sá Carneiro, Esposende</p>
+                <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0xd244be1e76964e5:0xaf8de2aecf75ad6b?sa=X&ved=1t:8290&ictx=111" target="_blank">Google Maps</a>
+            </div>
+            <div>
+                <h4>Social</h4>
+                <a href="https://www.instagram.com/academiadebailadodeesposende/" target="_blank">Instagram</a>
+            </div>
+            <div>
+                <h4>ABE</h4>
+                <p>info@abe-esposende.pt</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* LÓGICA DO CAROUSEL: Manipulação do DOM e do Estilo Inline */
+        let currentSlide = 0;
+
+        function moveSlide(direction) {
+            const slider = document.getElementById('slider');
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+
+            currentSlide += direction;
+
+            // Lógica de loop infinito
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            // Cálculo do deslocamento horizontal em percentagem
+            const offset = -currentSlide * 100;
+            // Aplicação direta da propriedade transform via JavaScript
+            slider.style.transform = `translateX(${offset}%)`;
+        }
+    </script>
+</body>
+</html>
