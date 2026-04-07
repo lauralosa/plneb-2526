@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    <title> Dicionário Médico - Home </title>
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-primary" href="/">🩺 Dicionário Médico</a>
+  </div>
+</nav>
+
+<div class="container px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold text-body-emphasis">Bem-vindo ao Dicionário Médico</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4 mt-3">A sua plataforma moderna e rápida para consulta de termos clínicos. Navegue pela nossa base de dados para encontrar definições claras ou integre os nossos dados através da nossa API.</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+      <a href="/conceitos" class="btn btn-primary btn-lg px-4 gap-3 shadow-sm">Explorar Conceitos</a>
+      <a href="/api/conceitos" class="btn btn-outline-secondary btn-lg px-4 shadow-sm">Aceder à API</a>
+    </div>
+  </div>
+</div>
+
+<div class="container px-4 py-5" id="custom-cards">
+  <h2 class="pb-2 border-bottom">O que pode fazer aqui?</h2>
+
+  <div class="row row-cols-1 row-cols-md-2 align-items-stretch g-4 py-5">
+    
+    <div class="col">
+      <div class="card h-100 rounded-4 shadow-sm border-primary border-top border-4">
+        <div class="card-body p-5">
+          <h3 class="card-title fw-bold text-primary mb-3">Lista de Conceitos</h3>
+          <p class="card-text text-muted">Aceda à interface web, uma lista interativa onde pode clicar e ler a descrição detalhada de qualquer termo médico presente na nossa base de dados (JSON).</p>
+          <a href="/conceitos" class="btn btn-primary mt-3">Ver Lista Completa &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100 rounded-4 shadow-sm border-success border-top border-4">
+        <div class="card-body p-5">
+          <h3 class="card-title fw-bold text-success mb-3">Endpoint da API</h3>
+          <p class="card-text text-muted">Aceda aos dados brutos. Esta rota devolve toda a informação do nosso dicionário num formato JSON limpo, ideal para ser lido por outras máquinas ou scripts.</p>
+          <a href="/api/conceitos" class="btn btn-success mt-3">Visualizar JSON &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

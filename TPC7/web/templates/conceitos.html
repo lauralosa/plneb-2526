@@ -1,0 +1,25 @@
+{% extends 'layout.html'%}
+
+{% block head %}
+    <title> Dicionário Médico - Lista de Conceitos </title>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    
+    <h1 class="mb-4 text-primary fw-bold">Lista de Conceitos</h1>
+    
+    <div class="list-group shadow-sm">
+        {% for conceito in conceitos %}
+            <a href="/conceitos/{{conceito}}" class="list-group-item list-group-item-action fs-5">
+                {{ conceito }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        <a href="/" class="btn btn-outline-secondary">Voltar à Página Inicial</a>
+    </div>
+
+</div>
+{% endblock %}
