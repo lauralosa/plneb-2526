@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    <title> Dicionário Médico - Home </title>
+{% endblock %}
+
+{% block body %}
+<div class="container px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold text-body-emphasis">Bem-vindo ao Dicionário Médico</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4 mt-3">A sua plataforma moderna e rápida para consulta de termos clínicos.</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+      <a href="/conceitos" class="btn btn-primary btn-lg px-4 gap-3 shadow-sm">Explorar Conceitos</a>
+      <a href="/pesquisar" class="btn btn-info btn-lg px-4 shadow-sm text-white">Pesquisar Termos</a>
+    </div>
+  </div>
+</div>
+
+<div class="container px-4 py-5" id="custom-cards">
+  <div class="row row-cols-1 row-cols-md-3 align-items-stretch g-4 py-5">
+    
+    <div class="col">
+      <div class="card h-100 rounded-4 shadow-sm border-primary border-top border-4">
+        <div class="card-body p-5">
+          <h3 class="card-title fw-bold text-primary mb-3">Conceitos</h3>
+          <p class="card-text text-muted">Aceda à lista interativa de termos médicos.</p>
+          <a href="/conceitos" class="btn btn-outline-primary mt-3">Ver Lista &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100 rounded-4 shadow-sm border-info border-top border-4">
+        <div class="card-body p-5">
+          <h3 class="card-title fw-bold text-info mb-3">Pesquisa</h3>
+          <p class="card-text text-muted">Procure termos específicos com filtros avançados.</p>
+          <a href="/pesquisar" class="btn btn-info mt-3 text-white">Ir para Pesquisa &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100 rounded-4 shadow-sm border-success border-top border-4">
+        <div class="card-body p-5">
+          <h3 class="card-title fw-bold text-success mb-3">API JSON</h3>
+          <p class="card-text text-muted">Aceda aos dados brutos para integração externa.</p>
+          <a href="/api/conceitos" class="btn btn-outline-success mt-3">Visualizar JSON &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

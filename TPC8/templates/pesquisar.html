@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="mb-4">Pesquisar no Dicionário</h2>
+    
+    <form action="/pesquisar" method="GET" class="mb-5">
+        <div class="input-group mb-3">
+            <input type="text" name="query" class="form-control" placeholder="Procure por um termo ou descrição..." value="{{ query }}">
+            <button class="btn btn-primary" type="submit">Pesquisar</button>
+        </div>
+
+        <div class="d-flex gap-3">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="case_sensitive" id="caseCheck" {% if case_sensitive %}checked{% endif %}>
+                <label class="form-check-label" for="caseCheck">Maiúsculas/Minúsculas</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="word_boundary" id="wordCheck" {% if word_boundary %}checked{% endif %}>
+                <label class="form-check-label" for="wordCheck">Palavra Exata</label>
+            </div>
+        </div>
+    </form>
+
+    {% if query %}
+        {% if resultados %}
+            <div class="list-group">
+                {% for res in resultados %}
+                    <a href="/conceitos/{{ res.designacao }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ res.desig_label | safe }}</h5>
+                        </div>
+                        <p class="mb-1 text-muted">{{ res.descricao | safe }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning">Não foram encontrados resultados para "{{ query }}".</div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
